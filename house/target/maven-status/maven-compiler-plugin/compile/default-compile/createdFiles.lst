@@ -1,0 +1,13 @@
+housebook/PolicyHandler.class
+housebook/HouseController.class
+housebook/HouseRentCanceled.class
+housebook/PaymentCanceled.class
+housebook/HouseApplication.class
+housebook/AbstractEvent.class
+housebook/Paid.class
+housebook/HouseRented.class
+housebook/AbstractEvent$1.class
+housebook/House.class
+housebook/config/kafka/KafkaProcessor.class
+housebook/HouseRepository.class
+housebook/HouseRegistered.class

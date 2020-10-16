@@ -1,0 +1,12 @@
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/HouseController.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/HouseRentCanceled.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/config/kafka/KafkaProcessor.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/AbstractEvent.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/HouseRepository.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/House.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/PolicyHandler.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/HouseApplication.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/HouseRegistered.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/HouseRented.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/Paid.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/house/src/main/java/housebook/PaymentCanceled.java

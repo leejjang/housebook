@@ -1,0 +1,13 @@
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/config/kafka/KafkaProcessor.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/HouseRegistered.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/AbstractEvent.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/MypageApplication.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/Booked.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/HouseRentCanceled.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/BookCanceled.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/HouseRented.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/Mypage.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/Paid.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/PolicyHandler.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/MypageViewHandler.java
+/Users/leejunseok/Alopex_IDE/cloudintensive_workspace/housebook/mypage/src/main/java/housebook/MypageRepository.java
