@@ -23,8 +23,6 @@ public class Payment {
         Paid paid = new Paid();
         BeanUtils.copyProperties(this, paid);
         paid.publishAfterCommit();
-
-
     }
 
     @PreRemove
@@ -32,10 +30,7 @@ public class Payment {
         PaymentCanceled paymentCanceled = new PaymentCanceled();
         BeanUtils.copyProperties(this, paymentCanceled);
         paymentCanceled.publishAfterCommit();
-
-
     }
-
 
     public Long getHouseId() {
         return houseId;

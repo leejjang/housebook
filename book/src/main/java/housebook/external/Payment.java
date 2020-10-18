@@ -4,6 +4,7 @@ public class Payment {
 
     private Long id;
     private String status;
+    private Long houseId;
     private Long bookId;
     private String paymentDate;
     private String paymentCancelDate;
@@ -14,6 +15,12 @@ public class Payment {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    public Long getHouseId() {
+        return houseId;
+    }
+    public void setHouseId(Long houseId) {
+        this.houseId = houseId;
     }
     public String getStatus() {
         return status;

@@ -31,6 +31,7 @@ public class Book {
         housebook.external.Payment payment = new housebook.external.Payment();
         // mappings goes here
         payment.setBookId(this.getId());
+        payment.setHouseId(this.getHouseId());
         payment.setStatus("BOOKED");
         BookApplication.applicationContext.getBean(housebook.external.PaymentService.class)
             .paymentRequest(payment);
@@ -50,10 +51,10 @@ public class Book {
         housebook.external.Payment payment = new housebook.external.Payment();
         // mappings goes here
         payment.setBookId(this.getId());
+        payment.setHouseId(this.getHouseId());
         payment.setStatus("BOOK_CANCELLED");
         BookApplication.applicationContext.getBean(housebook.external.PaymentService.class)
-            .paymentcancel(payment);
-
+            .paymentCancel(payment);
 
     }
 

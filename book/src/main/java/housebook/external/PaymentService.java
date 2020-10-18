@@ -12,7 +12,7 @@ import java.util.Date;
 public interface PaymentService {
 
     @RequestMapping(method= RequestMethod.DELETE, path="/payments")
-    public void paymentcancel(@RequestBody Payment payment);
+    public void paymentCancel(@RequestBody Payment payment);
 
     @RequestMapping(method= RequestMethod.POST, path="/payments")
     public void paymentRequest(@RequestBody Payment payment);

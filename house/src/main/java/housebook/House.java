@@ -22,24 +22,21 @@ public class House {
         HouseRegistered houseRegistered = new HouseRegistered();
         BeanUtils.copyProperties(this, houseRegistered);
         houseRegistered.publishAfterCommit();
-
-
     }
 
     @PostUpdate
     public void onPostUpdate(){
-        HouseRented houseRented = new HouseRented();
-        BeanUtils.copyProperties(this, houseRented);
-        houseRented.publishAfterCommit();
-
-
-        HouseRentCanceled houseRentCanceled = new HouseRentCanceled();
-        BeanUtils.copyProperties(this, houseRentCanceled);
-        houseRentCanceled.publishAfterCommit();
-
-
+        System.out.println("##### this.getStatus() = " + this.getStatus());
+        if (this.getStatus().equals("BOOKED")) {
+            HouseRented houseRented = new HouseRented();
+            BeanUtils.copyProperties(this, houseRented);
+            houseRented.publishAfterCommit();
+        } else {
+            HouseRentCanceled houseRentCanceled = new HouseRentCanceled();
+            BeanUtils.copyProperties(this, houseRentCanceled);
+            houseRentCanceled.publishAfterCommit();
+        }
     }
-
 
     public Long getId() {
         return id;
