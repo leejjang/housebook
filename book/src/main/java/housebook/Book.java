@@ -57,7 +57,7 @@ public class Book {
             payment.setHouseId(this.getHouseId());
             payment.setStatus(this.getStatus());
             BookApplication.applicationContext.getBean(housebook.external.PaymentService.class)
-                .paymentCancel(payment);
+                .paymentCancel(payment, this.getId());
         }
     }
 

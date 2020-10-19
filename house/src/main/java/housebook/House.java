@@ -30,14 +30,14 @@ public class House {
     @PostUpdate
     public void onPostUpdate(){
         System.out.println("##### onPostUpdate status = " + this.getStatus());
-        if (this.getStatus().equals("PAID")) {
+        if (this.getStatus().equals("RENTED")) {
             HouseRented houseRented = new HouseRented();
             BeanUtils.copyProperties(this, houseRented);
             houseRented.setStatus("RENTED");
             houseRented.publishAfterCommit();
         }
 
-        if (this.getStatus().equals("PAYMENT_CANCELED")) {
+        if (this.getStatus().equals("WAITING") && this.getBookId() == null) {
             HouseRentCanceled houseRentCanceled = new HouseRentCanceled();
             BeanUtils.copyProperties(this, houseRentCanceled);
             houseRentCanceled.setStatus("RENTED_CANCELED");

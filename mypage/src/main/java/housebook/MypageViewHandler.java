@@ -28,7 +28,6 @@ public class MypageViewHandler {
                 mypage.setHouseId(booked.getHouseId());
                 mypage.setStatus(booked.getStatus());
                 mypage.setHousePrice(booked.getHousePrice());
-                mypage.setBookDate(booked.getBookDate());
                 // view 레파지 토리에 save
                 mypageRepository.save(mypage);
             }
@@ -43,10 +42,8 @@ public class MypageViewHandler {
                 // view 객체 생성
                 Mypage mypage = new Mypage();
                 // view 객체에 이벤트의 Value 를 set 함
-                mypage.setPaymentId(paid.getId());
                 mypage.setHouseId(paid.getHouseId());
                 mypage.setStatus(paid.getStatus());
-                mypage.setPaymentDate(paid.getPaymentDate());
                 // view 레파지 토리에 save
                 mypageRepository.save(mypage);
             }

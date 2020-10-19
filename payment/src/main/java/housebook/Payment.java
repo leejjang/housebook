@@ -31,7 +31,7 @@ public class Payment {
 
     @PreUpdate
     public void onPreUpdate(){
-        System.out.println("##### onPostUpdate status = " + this.getStatus());
+        System.out.println("##### onPreUpdate status = " + this.getStatus());
         if (this.getStatus().equals("BOOK_CANCELED") || this.getStatus().equals("PAYMENT_CANCELED")) {
             PaymentCanceled paymentCanceled = new PaymentCanceled();
             BeanUtils.copyProperties(this, paymentCanceled);
@@ -39,6 +39,17 @@ public class Payment {
             paymentCanceled.publishAfterCommit();
         }
     }
+
+//    @PreUpdate
+//    public void onPreUpdate(){
+//        System.out.println("##### onPreUpdate status = " + this.getStatus());
+//        if (this.getStatus().equals("BOOK_CANCELED") || this.getStatus().equals("PAYMENT_CANCELED")) {
+//            PaymentCanceled paymentCanceled = new PaymentCanceled();
+//            BeanUtils.copyProperties(this, paymentCanceled);
+//            paymentCanceled.setStatus("PAYMENT_CANCELED");
+//            paymentCanceled.publishAfterCommit();
+//        }
+//    }
 
     public Long getHouseId() {
         return houseId;

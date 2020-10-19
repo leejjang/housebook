@@ -31,7 +31,7 @@ public class PolicyHandler{
             Optional<House> optional = houseRepository.findById(paymentCanceled.getHouseId());
             House house = optional.get();
             house.setBookId(null);
-            house.setStatus(paymentCanceled.getStatus());
+            house.setStatus("WAITING");
 
             houseRepository.save(house);
         }
@@ -45,7 +45,7 @@ public class PolicyHandler{
             Optional<House> optional = houseRepository.findById(paid.getHouseId());
             House house = optional.get();
             house.setBookId(paid.getBookId());
-            house.setStatus(paid.getStatus());
+            house.setStatus("RENTED");
 
             houseRepository.save(house);
         }

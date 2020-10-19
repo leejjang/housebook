@@ -10,7 +10,6 @@ public class Mypage {
         @Id
         @GeneratedValue(strategy=GenerationType.AUTO)
         private Long id;
-        private Long paymentId;
         private Long bookId;
         private Long houseId;
         private String status;
@@ -26,13 +25,7 @@ public class Mypage {
         public void setId(Long id) {
             this.id = id;
         }
-        public Long getPaymentId() {
-            return paymentId;
-        }
 
-        public void setPaymentId(Long paymentId) {
-            this.paymentId = paymentId;
-        }
         public Long getBookId() {
             return bookId;
         }
