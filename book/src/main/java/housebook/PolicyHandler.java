@@ -25,7 +25,7 @@ public class PolicyHandler{
     public void wheneverHouseRented_UpdateStatus(@Payload HouseRented houseRented){
 
         if(houseRented.isMe()){
-            System.out.println("##### listener UpdateStatus : " + houseRented.toJson());
+            System.out.println("##### wheneverHouseRented_UpdateStatus : " + houseRented.toJson());
 
             Optional<Book> optional = bookRepository.findById(houseRented.getBookId());
             Book book = optional.get();
@@ -39,7 +39,7 @@ public class PolicyHandler{
     public void wheneverHouseRentCanceled_UpdateStatus(@Payload HouseRentCanceled houseRentCanceled){
 
         if(houseRentCanceled.isMe()){
-            System.out.println("##### listener UpdateStatus : " + houseRentCanceled.toJson());
+            System.out.println("##### wheneverHouseRentCanceled_UpdateStatus : " + houseRentCanceled.toJson());
 
             Optional<Book> optional = bookRepository.findById(houseRentCanceled.getBookId());
             Book book = optional.get();

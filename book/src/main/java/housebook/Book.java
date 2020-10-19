@@ -21,48 +21,49 @@ public class Book {
 
     @PostPersist
     public void onPostPersist(){
-        Booked booked = new Booked();
-        BeanUtils.copyProperties(this, booked);
-        booked.publishAfterCommit();
+        System.out.println("##### onPostPersist status = " + this.getStatus());
+        if (this.getStatus().equals("BOOKED")) {
+            Booked booked = new Booked();
+            BeanUtils.copyProperties(this, booked);
+            booked.publishAfterCommit();
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+            //Following code causes dependency to external APIs
+            // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
-        housebook.external.Payment payment = new housebook.external.Payment();
-        // mappings goes here
-        payment.setBookId(this.getId());
-        payment.setHouseId(this.getHouseId());
-        payment.setStatus("BOOKED");
-        BookApplication.applicationContext.getBean(housebook.external.PaymentService.class)
-            .paymentRequest(payment);
-
-
+            housebook.external.Payment payment = new housebook.external.Payment();
+            // mappings goes here
+            payment.setBookId(this.getId());
+            payment.setHouseId(this.getHouseId());
+            payment.setStatus(this.getStatus());
+            BookApplication.applicationContext.getBean(housebook.external.PaymentService.class)
+                .paymentRequest(payment);
+        }
     }
 
-    @PreRemove
-    public void onPreRemove(){
-        BookCanceled bookCanceled = new BookCanceled();
-        BeanUtils.copyProperties(this, bookCanceled);
-        bookCanceled.publishAfterCommit();
+    @PostUpdate
+    public void onPostUpdate(){
+        System.out.println("##### onPostUpdate status = " + this.getStatus());
+        if (this.getStatus().equals("BOOK_CANCELED")) {
+            BookCanceled bookCanceled = new BookCanceled();
+            BeanUtils.copyProperties(this, bookCanceled);
+            bookCanceled.publishAfterCommit();
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+            //Following code causes dependency to external APIs
+            // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
-        housebook.external.Payment payment = new housebook.external.Payment();
-        // mappings goes here
-        payment.setBookId(this.getId());
-        payment.setHouseId(this.getHouseId());
-        payment.setStatus("BOOK_CANCELLED");
-        BookApplication.applicationContext.getBean(housebook.external.PaymentService.class)
-            .paymentCancel(payment);
-
+            housebook.external.Payment payment = new housebook.external.Payment();
+            // mappings goes here
+            payment.setBookId(this.getId());
+            payment.setHouseId(this.getHouseId());
+            payment.setStatus(this.getStatus());
+            BookApplication.applicationContext.getBean(housebook.external.PaymentService.class)
+                .paymentCancel(payment);
+        }
     }
-
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }

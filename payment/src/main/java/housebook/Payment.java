@@ -20,16 +20,24 @@ public class Payment {
 
     @PostPersist
     public void onPostPersist(){
-        Paid paid = new Paid();
-        BeanUtils.copyProperties(this, paid);
-        paid.publishAfterCommit();
+        System.out.println("##### onPostPersist status = " + this.getStatus());
+        if (this.getStatus().equals("BOOKED") || this.getStatus().equals("PAID")) {
+            Paid paid = new Paid();
+            BeanUtils.copyProperties(this, paid);
+            paid.setStatus("PAID");
+            paid.publishAfterCommit();
+        }
     }
 
-    @PreRemove
-    public void onPreRemove(){
-        PaymentCanceled paymentCanceled = new PaymentCanceled();
-        BeanUtils.copyProperties(this, paymentCanceled);
-        paymentCanceled.publishAfterCommit();
+    @PreUpdate
+    public void onPreUpdate(){
+        System.out.println("##### onPostUpdate status = " + this.getStatus());
+        if (this.getStatus().equals("BOOK_CANCELED") || this.getStatus().equals("PAYMENT_CANCELED")) {
+            PaymentCanceled paymentCanceled = new PaymentCanceled();
+            BeanUtils.copyProperties(this, paymentCanceled);
+            paymentCanceled.setStatus("PAYMENT_CANCELED");
+            paymentCanceled.publishAfterCommit();
+        }
     }
 
     public Long getHouseId() {
@@ -82,8 +90,4 @@ public class Payment {
     public void setHousePrice(Double housePrice) {
         this.housePrice = housePrice;
     }
-
-
-
-
 }

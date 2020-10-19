@@ -11,7 +11,7 @@ import java.util.Date;
 @FeignClient(name="payment", url="${api.payment.url}")
 public interface PaymentService {
 
-    @RequestMapping(method= RequestMethod.DELETE, path="/payments")
+    @RequestMapping(method= RequestMethod.POST, path="/payments")
     public void paymentCancel(@RequestBody Payment payment);
 
     @RequestMapping(method= RequestMethod.POST, path="/payments")

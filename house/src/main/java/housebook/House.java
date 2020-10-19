@@ -19,21 +19,28 @@ public class House {
 
     @PostPersist
     public void onPostPersist(){
-        HouseRegistered houseRegistered = new HouseRegistered();
-        BeanUtils.copyProperties(this, houseRegistered);
-        houseRegistered.publishAfterCommit();
+        System.out.println("##### onPostPersist status = " + this.getStatus());
+        if (this.getStatus().equals("WAITING")) {
+            HouseRegistered houseRegistered = new HouseRegistered();
+            BeanUtils.copyProperties(this, houseRegistered);
+            houseRegistered.publishAfterCommit();
+        }
     }
 
     @PostUpdate
     public void onPostUpdate(){
-        System.out.println("##### this.getStatus() = " + this.getStatus());
-        if (this.getStatus().equals("BOOKED")) {
+        System.out.println("##### onPostUpdate status = " + this.getStatus());
+        if (this.getStatus().equals("PAID")) {
             HouseRented houseRented = new HouseRented();
             BeanUtils.copyProperties(this, houseRented);
+            houseRented.setStatus("RENTED");
             houseRented.publishAfterCommit();
-        } else {
+        }
+
+        if (this.getStatus().equals("PAYMENT_CANCELED")) {
             HouseRentCanceled houseRentCanceled = new HouseRentCanceled();
             BeanUtils.copyProperties(this, houseRentCanceled);
+            houseRentCanceled.setStatus("RENTED_CANCELED");
             houseRentCanceled.publishAfterCommit();
         }
     }
