@@ -42,6 +42,7 @@ public class MypageViewHandler {
                 // view 객체 생성
                 Mypage mypage = new Mypage();
                 // view 객체에 이벤트의 Value 를 set 함
+                mypage.setBookId(paid.getId());
                 mypage.setHouseId(paid.getHouseId());
                 mypage.setStatus(paid.getStatus());
                 // view 레파지 토리에 save
@@ -74,14 +75,22 @@ public class MypageViewHandler {
     public void whenHouseRented_then_UPDATE_1(@Payload HouseRented houseRented) {
         try {
             if (houseRented.isMe()) {
+                // view 객체 생성
+                Mypage mypage = new Mypage();
+                // view 객체에 이벤트의 Value 를 set 함
+                mypage.setHouseId(houseRented.getId());
+                mypage.setStatus(houseRented.getStatus());
+                mypage.setBookId(houseRented.getBookId());
+                // view 레파지 토리에 save
+                mypageRepository.save(mypage);
                 // view 객체 조회
-                List<Mypage> mypageList = mypageRepository.findByHouseId(houseRented.getId());
-                for(Mypage mypage : mypageList){
-                    // view 객체에 이벤트의 eventDirectValue 를 set 함
-                    mypage.setStatus(houseRented.getStatus());
-                    // view 레파지 토리에 save
-                    mypageRepository.save(mypage);
-                }
+//                List<Mypage> mypageList = mypageRepository.findByHouseId(houseRented.getId());
+//                for(Mypage mypage : mypageList){
+//                    // view 객체에 이벤트의 eventDirectValue 를 set 함
+//                    mypage.setStatus(houseRented.getStatus());
+//                    // view 레파지 토리에 save
+//                    mypageRepository.save(mypage);
+//                }
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -91,14 +100,22 @@ public class MypageViewHandler {
     public void whenHouseRentCanceled_then_UPDATE_2(@Payload HouseRentCanceled houseRentCanceled) {
         try {
             if (houseRentCanceled.isMe()) {
+                // view 객체 생성
+                Mypage mypage = new Mypage();
+                // view 객체에 이벤트의 Value 를 set 함
+                mypage.setHouseId(houseRentCanceled.getId());
+                mypage.setStatus(houseRentCanceled.getStatus());
+                mypage.setBookId(houseRentCanceled.getBookId());
+                // view 레파지 토리에 save
+                mypageRepository.save(mypage);
                 // view 객체 조회
-                List<Mypage> mypageList = mypageRepository.findByHouseId(houseRentCanceled.getId());
-                for(Mypage mypage : mypageList){
-                    // view 객체에 이벤트의 eventDirectValue 를 set 함
-                    mypage.setStatus(houseRentCanceled.getStatus());
-                    // view 레파지 토리에 save
-                    mypageRepository.save(mypage);
-                }
+//                List<Mypage> mypageList = mypageRepository.findByHouseId(houseRentCanceled.getId());
+//                for(Mypage mypage : mypageList){
+//                    // view 객체에 이벤트의 eventDirectValue 를 set 함
+//                    mypage.setStatus(houseRentCanceled.getStatus());
+//                    // view 레파지 토리에 save
+//                    mypageRepository.save(mypage);
+//                }
             }
         }catch (Exception e){
             e.printStackTrace();
