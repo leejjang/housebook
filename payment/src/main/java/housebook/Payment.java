@@ -27,6 +27,14 @@ public class Payment {
             paid.setStatus("PAID");
             paid.publishAfterCommit();
         }
+        
+        try {
+            Thread.currentThread().sleep((long) (400 + Math.random() * 220));
+            System.out.println("##### SLEEP");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @PreUpdate
