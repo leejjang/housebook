@@ -20,22 +20,21 @@
 3. 고객이 결제를 진행하면, 예약이 확정되고, 숙소가 예약 불가 상태가 된다.
 4. 고객이 예약을 취소하면, 결제가 취소되고, 숙소가 예약 가능 상태가 된다.
 5. 고객은 숙소 예약 가능 여부를 확인할 수 있다.
-6. 고객은 숙소 예약 정보를 확인 할 수 있다.
 
 
 ## 비기능적 요구사항
 1. 트랜잭션
-    1. 결제가 되지 않은 예약건은 숙소 예약이 성립하지 않는다. (Sync 호출)
+    1. 결제가 되지 않은 예약건은 숙소 대여가 성립하지 않는다. (Sync 호출)
 2. 장애격리
     1. 관리자 숙소관리 기능이 수행되지 않더라도 예약은 항상 받을 수 있어야 한다. (Async:Event-driven, Eventual Consistency)
     2. 결제시스템이 과중되면 사용자를 잠시동안 받지 않고 결제를 잠시후에 하도록 유도한다. (Circuit breaker)
 3. 성능
-    1. 고객이 예약 현황을 예약 시스템에서 항상 확인 할 수 있어야 한다. (CQRS)
-    2. 결제, 예약 정보가 변경 될 때 마다 숙소 현황이 변경될 수 있어야 한다. (Event driven)
+    1. 고객이 대여 현황을 예약 시스템에서 항상 확인 할 수 있어야 한다. (CQRS)
+    2. 결제, 예약 정보가 변경 될 때 마다 숙소 재고가 변경될 수 있어야 한다. (Event driven)
 
 ---
 # 구현
-분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 단계별로 대변되는 마이크로 서비스들을 스프링부트와 자바로 구현하였다.    
+분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 스프링부트와 자바로 구현하였다.    
 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
 ```
 cd gateway
@@ -58,7 +57,7 @@ mvn spring-boot:run
 
 ---
 ## DDD 의 적용
-- 각 서비스 내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언
+- 각 서비스내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언
 ```
 package housebook;
 
@@ -112,13 +111,13 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 #### 적용 후 REST API 의 테스트
 
 1. 숙소1 등록
-``` http http://localhost:8083/houses id=1 status=WAITING houseName=신라호텔 housePrice=200000 ```
+``` http POST http://localhost:8083/houses id=1 status=WAITING houseName=신라호텔 housePrice=200000 ```
 
 <img width="457" alt="숙소등록1" src="https://user-images.githubusercontent.com/54618778/96413666-f0074e80-1226-11eb-88ca-1278f0077fc9.png">
 
 
 2. 숙소2 등록
-``` http http://localhost:8083/houses id=2 status=WAITING houseName=SK펜션 housePrice=500000 ```
+``` http POST http://localhost:8083/houses id=2 status=WAITING houseName=SK펜션 housePrice=500000 ```
 
 <img width="463" alt="숙소등록2" src="https://user-images.githubusercontent.com/54618778/96413673-f269a880-1226-11eb-9b1e-62ad3f98cd30.png">
 
@@ -136,47 +135,52 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 
 5. 숙소2 예약 취소
-``` http http://localhost:8081/books id=2 status=BOOK_CANCELED houseId=2 ```
+``` http PUT http://localhost:8081/books id=2 status=BOOK_CANCELED houseId=2 ```
 
 <img width="451" alt="숙소취소" src="https://user-images.githubusercontent.com/54618778/96413687-f5fd2f80-1226-11eb-87fd-2f8c7ea695c5.png">
 
 
 6. 예약 보기
-```http localhost:8081/books ```
+```http GET localhost:8081/books ```
 
 <img width="573" alt="예약상태보기" src="https://user-images.githubusercontent.com/54618778/96413688-f695c600-1226-11eb-9659-11ba9322f19d.png">
 
 
 7. 숙소 보기 
-``` http localhost:8083/houses ```
+``` http GET localhost:8083/houses ```
 
 <img width="591" alt="숙소상태보기" src="https://user-images.githubusercontent.com/54618778/96413674-f3023f00-1226-11eb-830e-d6ab51cb745b.png">
 
 
 8. 숙소 예약된 상태 (MyPage)
-``` http localhost:8084/mypages/7 ```
+``` http GET localhost:8084/mypages/7 ```
 
 <img width="569" alt="숙소예약된상태" src="https://user-images.githubusercontent.com/54618778/96413683-f5649900-1226-11eb-8ec6-a384afb76ead.png">
 
 
 9. 숙소 예약취소된 상태 (MyPage)
-``` http localhost:8084/mypages/9 ```
+``` http GET localhost:8084/mypages/9 ```
 
 <img width="545" alt="MyPage_예약취소" src="https://user-images.githubusercontent.com/54618778/96413690-f72e5c80-1226-11eb-9a1e-72df208097fc.png">
 
 
 ---
 ## 폴리글랏 퍼시스턴스
-H2 DB와 HSQL DB를 활용 하였다.
+모두 H2 메모리DB를 적용하였다.  
 다양한 데이터소스 유형 (RDB or NoSQL) 적용 시 데이터 객체에 @Entity 가 아닌 @Document로 마킹 후, 기존의 Entity Pattern / Repository Pattern 적용과 데이터베이스 제품의 설정 (pom.xml) 만으로 가능하다.
 
 ```
 --pom.xml // hsqldb 추가 예시
 <dependency>
-    <groupId>org.hsqldb</groupId>
-    <artifactId>hsqldb</artifactId>
-    <version>2.4.0</version>
-    <scope>runtime</scope>
+
+<groupId>org.hsqldb</groupId>
+
+<artifactId>hsqldb</artifactId>
+
+<version>2.4.0</version>
+
+<scope>runtime</scope>
+
 </dependency>
 ```
 
