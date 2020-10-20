@@ -168,21 +168,16 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 ---
 ## 폴리글랏 퍼시스턴스
-모두 H2 메모리DB를 적용하였다.  
+H2, HSQL DB를 적용하였다.  
 다양한 데이터소스 유형 (RDB or NoSQL) 적용 시 데이터 객체에 @Entity 가 아닌 @Document로 마킹 후, 기존의 Entity Pattern / Repository Pattern 적용과 데이터베이스 제품의 설정 (pom.xml) 만으로 가능하다.
 
 ```
 --pom.xml // hsqldb 추가 예시
 <dependency>
-
-<groupId>org.hsqldb</groupId>
-
-<artifactId>hsqldb</artifactId>
-
-<version>2.4.0</version>
-
-<scope>runtime</scope>
-
+  <groupId>org.hsqldb</groupId>
+  <artifactId>hsqldb</artifactId>
+  <version>2.4.0</version>
+  <scope>runtime</scope>
 </dependency>
 ```
 
